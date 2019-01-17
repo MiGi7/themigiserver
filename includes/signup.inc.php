@@ -1,0 +1,66 @@
+<?php
+
+header("Location:../index.php?signup=unavailable");
+exit();
+
+$first = $_POST['first'];
+$last = $_POST['last'];
+$email = $_POST['email'];
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+if (isset($_POST['Register!'])) {
+  include_once 'dbh.inc.php';
+
+//checks for empty fields
+  if(empty($first) || empty($last) || empty($email) || empty($username) || empty($password)) {
+      header("Location: ../register.php?signup=missing");
+      exit();
+  }
+
+  else {
+    //checks for a valid email input
+      if (!preg_match("/^[a-zA-Z\d]*$/", $first) || !preg_match("/^[a-zA-Z\d]*$/", $last)) {
+        header("Location: ../register.php?signup=invalidname".$first);
+      exit();
+      }
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header("Location: ../register.php?signup=invalidemail");
+      }
+      elseif (strlen($password) < 8) {
+        header("Location: ../register.php?signup=passwordlen");
+      }
+      else {
+        //checking if the username has been taken
+        $doubles = "SELECT * FROM logins WHERE user_name='$username'";
+        $result = mysqli_query($conn, $doubles);
+        $resultcheck = mysqli_num_rows($result);
+        //a value above 0 indicates that there is a row with the username
+        if ($resultcheck > 0){
+          header("Location: ../register.php?signup=usertaken");
+          exit();
+        } else {
+          //the hashed password
+          $hashedpass = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        //selects the table logins from the data base
+        $sql = "INSERT INTO logins (user_first, user_last, user_email, user_name, user_pass) VALUES (?, ?, ?, ?, ?);";
+        //variable $sql
+        $stmt = mysqli_stmt_init($conn);
+
+        //NEED TO UNDERSTAND THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (!mysqli_stmt_prepare($stmt,$sql)) {
+          echo "SQL ERROR";
+        }
+        else {
+          mysqli_stmt_bind_param($stmt, "sssss", $first, $last, $email, $username, $hashedpass);
+          mysqli_stmt_execute($stmt);
+          }
+          header('Location: ../index.php?signup=success');
+    }
+  }
+}
+else {
+  header("Location: ../register.php?signup=Nsubmit");
+}

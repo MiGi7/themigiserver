@@ -1,0 +1,192 @@
+html, body {
+ margin: 0;
+ background-color: white;
+}
+
+#register {
+  margin: 0 auto;
+  padding-top: 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 12px;
+  height: 400px;
+  width: 600px
+}
+
+
+input, select {
+	vertical-align: center;
+}
+
+#name {
+  font-size: 50px;
+  color: rgb(40,120,130);
+  margin:auto;
+  font-weight: bold;
+}
+
+.theheader {
+  padding: 0px 40px 0px 40px;
+	margin: none;
+	width: auto;
+}
+
+header nav {
+	width: 100%;
+	height: 14%;
+	background-color: rgb(215, 255, 230);
+}
+
+/* the section containing the navigation links*/
+header nav div ul {
+	float: left;
+}
+
+/*the section containing the form and pass and signup*/
+header nav div div{
+  float: right;
+  line-height: 35px;
+}
+
+/* signup and forget password*/
+header nav div div a {
+  float: right;
+  font-family: arial;
+	font-size: 16px;
+	line-height: 40px;
+  text-decoration: none;
+	color: rgb(40,120,130);
+  padding-left: 15px;
+}
+
+/*the inputs and button*/
+header nav div div form {
+  float: left;
+}
+
+/*JUST THE INPUTS*/
+header nav div div form input {
+  width: 170px;
+  height: 30px;
+  border: none;
+  padding: 0px 10px;
+  margin-right: 10px;
+  font-family: arial;
+	font-size: 16px;
+	line-height: 0px;
+  border-radius: 4px;
+  border-bottom: 2px solid black;
+}
+
+
+/*the navigation links(home,Browse)*/
+header nav div ul a {
+  text-decoration: none;
+	color: rgb(40,120,130);
+	font-family: arial;
+	font-size: 16px;
+	line-height: 0px;
+  padding-left: 15px;
+}
+
+/*div within the index*/
+#base {
+  margin: 0 auto;
+  width: 80%;
+  height: 83%;
+  background-color: white;
+
+}
+.theheader button:hover {
+  background-color: grey;
+}
+
+.theheader button {
+  transition-duration: 0.5s;
+  float: right;
+  margin: 5px 15px 15px 15px;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  padding: 3px;
+  width: 100px
+}
+
+.theheader p {
+  margin: 0 auto;
+  color: red;
+  font-size: 10px;
+}
+
+#register p {
+  margin: 0 auto;
+  color: red;
+  font-size: 14px;
+}
+/*Styling for the register.php*/
+#signup {
+  text-align: center;
+  font-style: italic;
+  color: black;
+}
+#register {
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: rgb(40,120,130);
+  border-radius: 12px;
+  height: 50%;
+  width: 50%;
+}
+#register input{
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 10%;
+  line-height: 30px;
+  font-size: 16px;
+  border-radius: 4px;
+  border-bottom: 2px solid black;
+}
+
+#register button {
+  height: 40px;
+  width: 30%;
+  transition-duration: 0.5s;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  padding: 3px;
+  margin-top: 15px;
+}
+
+#register button:hover{
+  background-color: rgb(220,255,255);
+}
+
+#register div {
+  margin: 0 auto;
+  width: 80%;
+  height: 100%;
+  background-color: white;
+}
+
+#uploads div {
+  width: 60%;
+}
+
+#uploads input {
+  width: 6 0%;
+  height: 30px;
+  padding: 0px 10px;
+  margin-right: 10px;
+  font-family: arial;
+	font-size: 16px;
+	line-height: 0px;
+}
+/*style for the file file_explorer*/
+#file_explorer li {
+  list-style-image: url(file_icon.png);
+  font-size: 18px;
+}

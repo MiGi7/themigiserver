@@ -1,0 +1,21 @@
+Current Progress:
+>Login system and upload system complete
+
+Need to do:
+1>Polish up the admin privileges and user home Page with search bar
+
+2>create a file browser
+
+3>create a forgot password page
+
+4> create a quick file transfer(airdrop)
+
+
+
+--> Think about a policy(allowing anyone to se this?)
+-->Message board(communication with the admin)
+-->search bar for all files(admin)
+-->Create directories for each user
+-->Reference code?
+-->Other features? or new project?
+  >?????
