@@ -1,7 +1,7 @@
 <?php
-
-header("Location:../index.php?signup=unavailable");
-exit();
+//currently closed signups redirects to the home page
+//header("Location:../index.php?signup=unavailable");
+//exit();
 
 $first = $_POST['first'];
 $last = $_POST['last'];
@@ -49,13 +49,19 @@ if (isset($_POST['Register!'])) {
         //variable $sql
         $stmt = mysqli_stmt_init($conn);
 
-        //NEED TO UNDERSTAND THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         if (!mysqli_stmt_prepare($stmt,$sql)) {
           echo "SQL ERROR";
         }
         else {
           mysqli_stmt_bind_param($stmt, "sssss", $first, $last, $email, $username, $hashedpass);
           mysqli_stmt_execute($stmt);
+          $last_id = "SELECT * FROM logins ORDER BY ID DESC LIMIT 1";
+          $id_result = mysqli_query($conn, $last_id);
+          $id_num = mysqli_fetch_assoc($id_result);
+          $num = $id_num['ID'];
+          $new_dir = 'uploads/'.strval($num);
+          mkdir($new_dir);
           }
           header('Location: ../index.php?signup=success');
     }

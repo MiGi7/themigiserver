@@ -27,7 +27,7 @@ if (isset($_POST['login'])) {
          header('Location: ../index.php?login=error1');
          exit();
        } elseif ($hashedpasscheck == true) {
-         $_SESSION['u_id'] = $row['user_id'];
+         $_SESSION['id'] = $row['ID'];
          $_SESSION['u_first'] = $row['user_first'];
          $_SESSION['u_last'] = $row['user_last'];
          $_SESSION['u_email'] = $row['user_email'];

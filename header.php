@@ -1,6 +1,6 @@
 <?php
   session_start();
-//log the user out after 10 minutes of inactivity (activity = clicking on link, etc)
+//log the user out after 10 minutes of inactivity (activity = clicking on links, uploading, etc)
   $time_allowed = 600;
 
   if (isset($_SESSION['time'])) {

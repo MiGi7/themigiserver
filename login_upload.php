@@ -5,14 +5,15 @@
   <ul>
       <?php
     //for every file there should be an added list item.
-    $dir = 'includes/uploads/';
+    $id =  $_SESSION['id'];
+    $dir = "includes/uploads/$id";
     $files = scandir($dir);
     $total = count($files);
     $total_new = $total - 2;
     echo "<p>Files in your folder: ".$total_new."</p>";
     for($i = 2; $i < $total; ++$i) {
       $a_file = $files[$i];
-      echo '<li><a href=''>'.$a_file.'</a></li>';
+      echo '<li><a href="">'.$a_file.'</a></li>';
     }
        ?>
   </ul>

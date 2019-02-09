@@ -27,13 +27,14 @@ if (isset($_POST['Upload'])) {
 
       if($filesize < 1000000000) {
           $filesize = ($filesize / 1000).' MB';
+          $id =  $_SESSION['id'];
+          $des = "uploads/$id/";
         if(strlen($new_name) > 1) {
           $filename = $new_name.'.'.$extension;
-          $file_des = 'uploads/'.$filename;
+          $file_des = $des.$filename;
           move_uploaded_file($filetmp,$file_des);
-
         } else {
-          $file_des = 'uploads/'.$filename;
+          $file_des = $des.$filename;
           move_uploaded_file($filetmp,$file_des);
         }
         $dir = 1;
