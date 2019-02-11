@@ -4,16 +4,19 @@
 <div id="file_explorer">
   <ul>
       <?php
+    //need to get the form to process on each item click.
+    //the href link need to be the item name.
     //for every file there should be an added list item.
     $id =  $_SESSION['id'];
     $dir = "includes/uploads/$id";
+    $new_dir = "$dir/";
     $files = scandir($dir);
     $total = count($files);
     $total_new = $total - 2;
     echo "<p>Files in your folder: ".$total_new."</p>";
     for($i = 2; $i < $total; ++$i) {
       $a_file = $files[$i];
-      echo '<li><a href="">'.$a_file.'</a></li>';
+      echo '<li><a href='.$new_dir.$a_file.'>'.$a_file.'</a></li>';
     }
        ?>
   </ul>
