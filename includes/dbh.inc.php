@@ -1,4 +1,8 @@
 <?php
-$connectionInfo = array("UID" => "mycomputer@themigiserver", "pwd" => "@Kingston2019", "Database" => "Projects", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
-$serverName = "tcp:themigiserver.database.windows.net,1433";
-$conn = sqlsrv_connect($serverName, $connectionInfo);
+
+$dbServername = "mycomputer@themigiserver:1443";
+$dbUsername = "mycomputer@themigiserver";
+$dbPassword = "@Kingston2019";
+$dbName = "Projects";
+
+$conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
