@@ -19,7 +19,7 @@ if (isset($_POST['Upload'])) {
   $fileExt = explode('.',$filename);
   $extension = strtolower(end($fileExt));
 
-  $allowed_files = array('jpg','jpeg','mp3','mp4','png','heic','pyc','py','exe');
+  $allowed_files = array('jpg','jpeg','mp3','mp4','png','heic','pyc','py','exe','txt','docx','m4a','apk');
 
   if(in_array($extension, $allowed_files)) {
 
@@ -59,6 +59,7 @@ if (isset($_POST['Upload'])) {
         }
       } else {
         $upload_error = ('There was an error uploading your file.');
+        echo($fileerror);
         header('Location:../index.php?upload=unknown');
       }
    } else {

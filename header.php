@@ -8,6 +8,7 @@
     if ($_SERVER['REQUEST_TIME'] - $_SESSION['time'] > $time_allowed) {
     session_unset();
     session_destroy();
+    header("Location:index.php?timeout");
     } else {
       $_SESSION['time'] = $_SERVER['REQUEST_TIME'];
     }
