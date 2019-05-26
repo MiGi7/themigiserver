@@ -6,8 +6,8 @@ if (isset($_POST['login'])) {
 
   include_once 'dbh.inc.php';
 
-  $uid = mysqli_real_escape_string($conn, $_POST['uid']);
-  $pass = mysqli_real_escape_string($conn, $_POST['pass']);
+  $uid = $_POST['uid'];
+  $pass = $_POST['pass'];
 
  if (empty($uid) || empty($pass)) {
    header('Location: ../index.php?login=empty');

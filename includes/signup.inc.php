@@ -47,7 +47,7 @@ if (isset($_POST['Register!'])) {
         //selects the table logins from the data base
         $sql = "INSERT INTO logins (user_first, user_last, user_email, user_name, user_pass) VALUES (?, ?, ?, ?, ?);";
         //variable $sql
-        $param = ($first, $last, $email, $username, $hashedpass);
+        $param = array($first, $last, $email, $username, $hashedpass);
         $stmt = sqlsrv_query($conn, $sql, $param);
 
 
