@@ -32,11 +32,11 @@ if (isset($_POST['Register!'])) {
       }
       else {
         //checking if the username has been taken
-        $doubles = "SELECT * FROM logins WHERE user_name='$username'";
+        $doubles = "SELECT * FROM logins WHERE user_name='$username';";
         $result = sqlsrv_query($conn, $doubles);
-        $resultcheck = sqlsrv_num_rows($result);
+        $resultcheck = sqlsrv_has_rows($result);
         //a value above 0 indicates that there is a row with the username
-        if ($resultcheck > 0){
+        if ($resultcheck === 1){
           header("Location: ../register.php?signup=usertaken");
           exit();
         } else {
@@ -55,9 +55,9 @@ if (isset($_POST['Register!'])) {
           echo "SQL ERROR";
         }
         else {
-          $last_id = "SELECT * FROM logins ORDER BY ID DESC LIMIT 1";
+          $last_id = "SELECT TOP 1 * FROM logins ORDER BY ID DESC";
           $id_result = sqlsrv_query($conn, $last_id);
-          $id_num = sqlsrv_fetch($id_result);
+          $id_num = sqlsrv_fetch_array($id_result);
           $num = $id_num['ID'];
           $new_dir = 'uploads/'.strval($num);
           mkdir($new_dir);
