@@ -16,7 +16,7 @@
     echo "<p>Files in your folder: ".$total_new."</p>";
     for($i = 2; $i < $total; ++$i) {
       $a_file = $files[$i];
-      echo '<li><a href='.$new_dir.$a_file.'>'.$a_file.'</a></li>';
+      echo '<li><a href='.$new_dir.$a_file.'>'.$a_file.'</a><button onclick="deleteFile('.$a_file.')"></button></li>';
     }
        ?>
   </ul>
