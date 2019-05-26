@@ -33,7 +33,7 @@ if (isset($_POST['Register!'])) {
       else {
         //checking if the username has been taken
         $doubles = "SELECT * FROM logins WHERE user_name='$username'";
-        $result = mysqli_query($conn, $doubles);
+        $result = sqlsrv_query($conn, $doubles);
         $resultcheck = mysqli_num_rows($result);
         //a value above 0 indicates that there is a row with the username
         if ($resultcheck > 0){
@@ -47,17 +47,16 @@ if (isset($_POST['Register!'])) {
         //selects the table logins from the data base
         $sql = "INSERT INTO logins (user_first, user_last, user_email, user_name, user_pass) VALUES (?, ?, ?, ?, ?);";
         //variable $sql
-        $stmt = mysqli_stmt_init($conn);
+        $param = ($first, $last, $email, $username, $hashedpass);
+        $stmt = sqlsrv_query($conn, $sql, $param);
 
 
-        if (!mysqli_stmt_prepare($stmt,$sql)) {
+        if ($stmt === false) {
           echo "SQL ERROR";
         }
         else {
-          mysqli_stmt_bind_param($stmt, "sssss", $first, $last, $email, $username, $hashedpass);
-          mysqli_stmt_execute($stmt);
           $last_id = "SELECT * FROM logins ORDER BY ID DESC LIMIT 1";
-          $id_result = mysqli_query($conn, $last_id);
+          $id_result = sqlsrv_query($conn, $last_id);
           $id_num = mysqli_fetch_assoc($id_result);
           $num = $id_num['ID'];
           $new_dir = 'uploads/'.strval($num);
