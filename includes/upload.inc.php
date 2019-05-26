@@ -40,16 +40,14 @@ if (isset($_POST['Upload'])) {
         $dir = 1;
         //File information is inserted into the database.
         $sql = "INSERT INTO uploads (file_name,file_size,file_type,user_login,date_uploaded) VALUES(?,?,?,?,?);";
-
-        $stmt = mysqli_stmt_init($conn);
-
-        if (!mysqli_stmt_prepare($stmt,$sql)) {
+        $param = array($filename,$filesize,$filetype,$user,$total);
+        $stmt = sqlsrv_query($conn, $sql, $param);
+        
+        if (!$stmt) {
           echo "SQL ERROR";
         }
         else {
           $user = $_SESSION['u_name'];
-          mysqli_stmt_bind_param($stmt, "sssss",$filename,$filesize,$filetype,$user,$total);
-          mysqli_stmt_execute($stmt);
           }
 
 
@@ -60,7 +58,7 @@ if (isset($_POST['Upload'])) {
       } else {
         $upload_error = ('There was an error uploading your file.');
         echo($fileerror);
-        header('Location:../index.php?upload=unknown');
+        header('Location:../index.php?upload=unknown' .$fileerror);
       }
    } else {
        $upload_error = ('The file type is not allowed.');
