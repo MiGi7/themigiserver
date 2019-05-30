@@ -18,8 +18,7 @@
 int main(int argc , char *argv[])
 {
     int opt = TRUE;
-    int master_socket , addrlen , new_socket , client_socket[30] ,
-          max_clients = 30 , activity, i , valread , sd;
+    int master_socket , addrlen , new_socket , client_socket[30] ,max_clients = 30 , activity, i , valread , sd;
     int max_sd;
     struct sockaddr_in address;
 
@@ -46,8 +45,7 @@ int main(int argc , char *argv[])
 
     //set master socket to allow multiple connections ,
     //this is just a good habit, it will work without this
-    if( setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, (char *)&opt,
-          sizeof(opt)) < 0 )
+    if( setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, (char *)&opt,sizeof(opt)) < 0 )
     {
         perror("setsockopt");
         exit(EXIT_FAILURE);
@@ -114,17 +112,14 @@ int main(int argc , char *argv[])
         //then its an incoming connection
         if (FD_ISSET(master_socket, &readfds))
         {
-            if ((new_socket = accept(master_socket,
-                    (struct sockaddr *)&address, (socklen_t*)&addrlen))<0)
+            if ((new_socket = accept(master_socket,(struct sockaddr *)&address, (socklen_t*)&addrlen))<0)
             {
                 perror("accept");
                 exit(EXIT_FAILURE);
             }
 
             //inform user of socket number - used in send and receive commands
-            printf("New connection , socket fd is %d , ip is : %s , port : %d
-                  \n" , new_socket , inet_ntoa(address.sin_addr) , ntohs
-                  (address.sin_port));
+            printf("New connection , socket fd is %d , ip is : %s , port : %d\n" , new_socket , inet_ntoa(address.sin_addr) , ntohs(address.sin_port));
 
             //send new connection greeting message
             if( send(new_socket, message, strlen(message), 0) != strlen(message) )
@@ -160,10 +155,8 @@ int main(int argc , char *argv[])
                 if ((valread = read( sd , buffer, 1024)) == 0)
                 {
                     //Somebody disconnected , get his details and print
-                    getpeername(sd , (struct sockaddr*)&address , \
-                        (socklen_t*)&addrlen);
-                    printf("Host disconnected , ip %s , port %d \n" ,
-                          inet_ntoa(address.sin_addr) , ntohs(address.sin_port));
+                    getpeername(sd , (struct sockaddr*)&address ,(socklen_t*)&addrlen);
+                    printf("Host disconnected , ip %s , port %d \n" ,inet_ntoa(address.sin_addr) , ntohs(address.sin_port));
 
                     //Close the socket and mark as 0 in list for reuse
                     close( sd );
@@ -183,4 +176,4 @@ int main(int argc , char *argv[])
     }
 
     return 0;
-}   
+}
