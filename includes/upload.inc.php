@@ -19,7 +19,7 @@ if (isset($_POST['Upload'])) {
   $fileExt = explode('.',$filename);
   $extension = strtolower(end($fileExt));
 
-  $allowed_files = array('jpg','jpeg','mp3','mp4','png','heic','pyc','py','exe','txt','docx','m4a','apk','c');
+  $allowed_files = array('jpg','jpeg','mp3','mp4','png','heic','pyc','py','exe','txt','docx','m4a','apk','c', 'cpp');
 
   if(in_array($extension, $allowed_files)) {
 

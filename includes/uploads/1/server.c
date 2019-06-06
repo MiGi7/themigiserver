@@ -1,67 +1,55 @@
-#include<signal.h>
-#include<stdio.h>
-#include<sys/socket.h>
-#include<arpa/inet.h>
-#include<string.h>
-#include<sys/types.h>
-#include<stdlib.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <unistd.h>
 
-int main()
+#define MAXLINE 4096 /*max text line length*/
+#define SERV_PORT 443 /*port*/
+#define LISTENQ 8 /*maximum number of client connections */
+
+int main (int argc, char **argv)
 {
-    printf("Starting\n");
-    struct sockaddr_in myaddr ,clientaddr;
-    int sockid,newsockid;
-    sockid=socket(AF_INET,SOCK_STREAM,0);
-    memset(&myaddr,'0',sizeof(myaddr));
-    myaddr.sin_family=AF_INET;
-    myaddr.sin_port=htons(8888);
-    myaddr.sin_addr.s_addr=inet_addr("migiserver.ddns.net");
-    if(sockid==-1)
-    {
-        printf("socket");
-    }
-    int len=sizeof(myaddr);
-    if(bind(sockid,( struct sockaddr*)&myaddr,len)==-1)
-    {
-        printf("bind");
-    }
-    if(listen(sockid,10)==-1)
-    {
-        printf("listen");
-    }
-    int pid,new;
-    static int counter=0;
-    printf("Listening...");
-    while(1)
-    {
-        printf("Listening...");
-        new = accept(sockid, (struct sockaddr *)&clientaddr, &len);
+ int listenfd, connfd, n;
+ socklen_t clilen;
+ char buf[MAXLINE];
+ struct sockaddr_in cliaddr, servaddr;
 
-        if ((pid = fork()) == -1)
-        {
-            close(new);
-            continue;
-        }
-        else if(pid > 0)
-        {
-            close(new);
-            counter++;
-            printf("here2\n");
-            continue;
-        }
-        else if(pid == 0)
-        {
-            char buf[100];
+ //creation of the socket
+ listenfd = socket (AF_INET, SOCK_STREAM, 0);
 
-            counter++;
-            printf("here 1\n");
-            snprintf(buf, sizeof buf, "hi %d", counter);
-            send(new, buf, strlen(buf), 0);
-            close(new);
-            break;
-        }
-      }
-    printf("here3");
-    close(sockid);
-    return 0;
+ //preparation of the socket address
+ servaddr.sin_family = AF_INET;
+ servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+ servaddr.sin_port = htons(SERV_PORT);
+
+ bind (listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+
+ listen (listenfd, LISTENQ);
+
+ printf("%s\n","Server running...waiting for connections.");
+
+ for ( ; ; ) {
+
+  clilen = sizeof(cliaddr);
+  connfd = accept (listenfd, (struct sockaddr *) &cliaddr, &clilen);
+  printf("%s\n","Received request...");
+
+  while ( (n = recv(connfd, buf, MAXLINE,0)) > 0)  {
+   printf("%s","String received from and resent to the client:");
+   puts(buf);
+   send(connfd, buf, n, 0);
+  }
+
+ if (n < 0) {
+  perror("Read error");
+  exit(1);
+ }
+ close(connfd);
+
+ }
+ //close listening socket
+ close (listenfd);
 }
